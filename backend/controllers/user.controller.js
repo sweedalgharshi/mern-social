@@ -22,9 +22,16 @@ async function registerUser(req, res) {
       },
     });
 
-    res.status(201).json({
+    const token = await user.generateToken();
+    const tokenOptions = {
+      expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+    };
+
+    res.status(201).cookie("token", token, tokenOptions).json({
       success: true,
       user,
+      token,
     });
   } catch (err) {
     res.status(500).json({
