@@ -1,5 +1,6 @@
 const express = require("express");
 const postRouter = require("./routes/post.routes");
+const userRouter = require("./routes/user.routes");
 
 const app = express();
 
@@ -12,5 +13,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use("/api/v1", postRouter);
+app.use("/api/v1", userRouter);
 
 module.exports = app;
